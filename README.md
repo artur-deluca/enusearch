@@ -6,16 +6,16 @@ A collection of enumerative search algorithms for combinatorial optimization
 To use enusearch directly from this repository use:
 ```
 $ python setup.py install
-# or
+** or **
 $ pip install -e .
 ```
 
 If you want to contribute to this repository use instead:
 ```
 $ python setup.py develop
-# or
+** or **
 $ pip install -e .[dev]
-# or even
+** or even **
 $ make install
 ```
 
