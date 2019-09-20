@@ -17,3 +17,4 @@ Available:
 """ 
 from enusearch import branch_and_bound
 from enusearch import exaustive
+from enusearch import forward

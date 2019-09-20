@@ -66,16 +66,19 @@ def solve(obj_func, candidates, order, f_min=True, selection_size=None, n_jobs=N
     elif n_jobs == -2:
         n_jobs = multiprocess.cpu_count() - 1
 
-    if order:
-        iterable = itertools.permutations(candidates, selection_size)
-    else:
-        iterable = itertools.combinations(candidates, selection_size)
-    
-    wrapped = functools.partial(wrapper, obj_func=obj_func, m=m)
     pool = multiprocess.Pool(n_jobs)
-    results = sorted(pool.map(wrapped, iterable), key=lambda x: x["value"])
-    iterations = len(results)
-    best_candidate = results[0]["position"]
+    wrapped = functools.partial(wrapper, obj_func=obj_func, m=m)
+    candidate_list = candidates.copy()
+    
+    iterations = 0
+    best_candidate = list()
+
+    while selection_size != len(best_candidate):
+        iterations += len(candidate_list)
+        iterable = [best_candidate + [i] for i in candidate_list]
+        best_candidate.append(min(pool.map(wrapped, iterable), key=lambda x: x["value"])["position"][-1])
+        candidate_list.remove(best_candidate[-1])
+        
 
     logging.info("Evaluations: {}".format(iterations))
     logging.info("Duration: {:.3f}s".format(time.time() - start))

@@ -36,13 +36,13 @@ def subspace_builder(order, candidates):
         get_subspaces = functools.partial(_get_subspaces, candidates=candidates)
 
     else:
-        def get_subspaces(self, space):
+        def get_subspaces(space):
             return list(itertools.combinations(space, len(space)-1))
     
     return get_subspaces
 
 def generate_branches(obj_func, splits, m):
-        stack = [{"position": i, "value": m * obj_func(i)} for i in splits]    
+        stack = [{"position": j, "value": m * obj_func(j)} for j in splits]    
         stack.sort(reverse=True, key=lambda x: x["value"])
         return stack
 

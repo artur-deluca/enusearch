@@ -62,7 +62,7 @@ def solve(obj_func, candidates, order, f_min=True, selection_size=None, verbose=
         splits = [[i] for i in candidates]
         stack = generate_branches(obj_func, splits, m)
     else:
-        stack = generate_branches(obj_func, candidates, m)
+        stack = generate_branches(obj_func, [candidates], m)
     
     # best_candidate, bound = find_initial_bound(stack, get_subspaces, selection_size, obj_func, m)
     bound = float("inf")
